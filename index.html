@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montaña Serena — Café de origen del Cauca</title>
+<meta name="description" content="Café especial de las montañas del Cauca. Cuatro referencias tostadas por pedido en Popayán. Pre-pedido por WhatsApp.">
+
+<!--
+  ============================================================
+  MONTAÑA SERENA — index.html
+  Sitio estático de una sola página. Sin dependencias, sin build.
+  Se abre haciendo doble clic. Las imágenes van en img/.
+
+  ------------------------------------------------------------
+  CRITERIO: el sitio se adapta a lo que dice la etiqueta física.
+  Las fotos son reales y no se retocan para calzar con el texto.
+
+  RESUELTO:
+
+  1) GRAMAJE. Las bolsas dicen 500 g. El catálogo va en gramos
+     (500 / 250 / 125 g). No se usa "libra" en ninguna parte.
+
+  2) PINK BOURBON RESERVA. Es el nombre impreso en la bolsa, así
+     que es el que manda. "Bourbon rosado" queda mencionado en las
+     notas de cata como el nombre de la variedad.
+
+  3) MONTAÑA REAL. Va 1.775 msnm, que es lo impreso en la bolsa.
+
+  4) RESERVA ANCESTRAL. La etiqueta física tiene dos erratas de
+     imprenta ("ANSESTRAL" y "CAJCA"). En el sitio va escrito bien:
+     un error de imprenta no se copia a la web. Corregir en el
+     próximo tiraje de etiquetas.
+
+  FALTA DECIDIR:
+
+  5) CORDILLERA ROAST. Quedó con la etiqueta "Preventa" porque el
+     LEEME del paquete de fotos dice que aún no existe físicamente.
+     Si ya está disponible, borrar la línea  estado: "Preventa"
+     del arreglo CATALOGO y listo.
+
+  6) SIN ESCRIBIR: la sección de las mujeres caficultoras.
+     Falta el dato real.
+
+  ------------------------------------------------------------
+  Cambiar precios o agregar referencias = editar el arreglo
+  CATALOGO, abajo en el <script>. Las filas se generan solas.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --tinta:#16201a;
+  --tinta-suave:#2b382f;
+  --papel:#e9e7df;
+  --papel-hondo:#dedbd1;
+  --paramo:#4f6b57;
+  --plata:#a9ac9c;
+
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --serif:"Fraunces",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+  --margen:clamp(1.25rem,5vw,5.5rem);
+  --aire:clamp(5rem,11vw,10rem);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--papel);color:var(--tinta);
+  font-family:var(--sans);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.envoltura{max-width:1180px;margin:0 auto;padding-inline:var(--margen)}
+
+/* ---------- barra ---------- */
+.barra{
+  position:absolute;top:0;left:0;right:0;z-index:5;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1.75rem var(--margen);color:var(--papel);
+}
+.marca{
+  font-family:var(--serif);font-optical-sizing:auto;font-weight:400;
+  font-size:1.25rem;letter-spacing:.01em;text-decoration:none;
+}
+.barra-enlace{
+  font-size:.9rem;text-decoration:none;padding-bottom:2px;
+  border-bottom:1px solid rgba(233,231,223,.45);
+  transition:border-color .25s ease;
+}
+.barra-enlace:hover{border-bottom-color:var(--papel)}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;min-height:min(100svh,880px);
+  display:flex;align-items:flex-end;
+  background:#16201a;overflow:hidden;
+}
+.hero picture,.hero img{position:absolute;inset:0;width:100%;height:100%}
+.hero img{object-fit:cover;object-position:center 58%}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(12,19,15,.9) 6%,rgba(12,19,15,.28) 52%,rgba(12,19,15,.5) 100%);
+}
+.hero-texto{
+  position:relative;z-index:1;width:100%;
+  padding-bottom:clamp(3.5rem,8vw,6rem);color:var(--papel);
+}
+.hero h1{
+  font-family:var(--serif);font-optical-sizing:auto;font-weight:300;
+  font-size:clamp(2.6rem,7.2vw,5.4rem);line-height:1.02;
+  letter-spacing:-.018em;margin:0 0 1.5rem;max-width:15ch;
+}
+.hero-bajada{margin:0;max-width:44ch;font-size:clamp(1rem,1.6vw,1.15rem);color:rgba(233,231,223,.85)}
+.hero-altura{
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;
+  color:var(--plata);margin:0 0 1.75rem;
+  display:flex;align-items:center;gap:.85rem;
+}
+.hero-altura::before{content:"";width:clamp(2rem,7vw,5rem);height:1px;background:var(--plata)}
+
+/* ---------- secciones ---------- */
+.seccion{padding-block:var(--aire)}
+.seccion-hondo{background:var(--papel-hondo)}
+.titulo{
+  font-family:var(--serif);font-optical-sizing:auto;font-weight:300;
+  font-size:clamp(1.9rem,4.2vw,3.1rem);line-height:1.12;
+  letter-spacing:-.015em;margin:0 0 1.75rem;max-width:20ch;
+}
+
+/* ---------- relato ---------- */
+.relato p{max-width:58ch;margin:0 0 1.15rem;color:var(--tinta-suave)}
+.relato p:last-child{margin-bottom:0}
+
+/* ---------- franjas ---------- */
+.franja{position:relative;background:var(--tinta);overflow:hidden}
+.franja img{width:100%;height:clamp(240px,42vh,440px);object-fit:cover}
+
+/* ---------- rasgos ---------- */
+.rasgos{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(2rem,4vw,3.5rem);margin-top:clamp(2.5rem,5vw,4rem);
+}
+.rasgo h3{
+  font-family:var(--serif);font-optical-sizing:auto;font-weight:400;
+  font-size:1.25rem;line-height:1.25;margin:0 0 .75rem;padding-top:1rem;
+  border-top:1px solid rgba(79,107,87,.4);
+}
+.rasgo p{margin:0;color:var(--tinta-suave);font-size:.97rem;max-width:36ch}
+.remate{
+  margin:clamp(2.5rem,5vw,4rem) 0 0;max-width:60ch;
+  font-family:var(--serif);font-optical-sizing:auto;font-weight:300;
+  font-size:clamp(1.15rem,2.2vw,1.5rem);line-height:1.45;
+}
+
+/* ---------- catálogo ---------- */
+.catalogo-cabeza{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  gap:1rem;margin-bottom:clamp(2.5rem,5vw,4rem);
+}
+.catalogo-cabeza .titulo{margin-bottom:0}
+.catalogo-nota{font-family:var(--mono);font-size:.8rem;color:var(--tinta-suave);margin:0}
+
+.lista{list-style:none;margin:0;padding:0}
+.fila{
+  display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,300px);
+  gap:clamp(1.5rem,4vw,3.5rem);align-items:center;
+  padding-block:clamp(2rem,4vw,2.9rem);
+  border-top:1px solid rgba(22,32,26,.16);
+}
+.fila:last-child{border-bottom:1px solid rgba(22,32,26,.16)}
+.fila-foto{aspect-ratio:3/4;background:#f2f1ec;overflow:hidden}
+.fila-foto img{width:100%;height:100%;object-fit:cover}
+
+.fila-nombre{
+  font-family:var(--serif);font-optical-sizing:auto;font-weight:400;
+  font-size:clamp(1.5rem,2.6vw,2.05rem);line-height:1.15;
+  letter-spacing:-.01em;margin:0 0 .5rem;
+}
+.etiqueta-estado{
+  display:inline-block;margin-left:.65rem;vertical-align:middle;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;
+  color:var(--paramo);border:1px solid rgba(79,107,87,.5);
+  padding:.15rem .5rem;
+}
+.fila-notas{margin:0 0 1rem;max-width:46ch;color:var(--tinta-suave);font-size:.97rem}
+.fila-datos{
+  display:flex;flex-wrap:wrap;gap:1.4rem;margin:0;
+  font-family:var(--mono);font-size:.78rem;color:var(--paramo);
+}
+
+.opciones{display:flex;flex-direction:column;gap:.5rem;margin:0 0 .5rem;border:0;padding:0}
+.opciones legend{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.opcion{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:.7rem .95rem;border:1px solid rgba(22,32,26,.2);cursor:pointer;
+  transition:border-color .2s ease,background-color .2s ease;
+}
+.opcion:hover{border-color:var(--paramo)}
+.opcion input{position:absolute;opacity:0;pointer-events:none}
+.opcion:has(input:checked){border-color:var(--paramo);background:rgba(79,107,87,.09)}
+.opcion:has(input:focus-visible){outline:2px solid var(--paramo);outline-offset:2px}
+.opcion-nombre{font-size:.92rem}
+.opcion-precio{font-family:var(--mono);font-size:.92rem;white-space:nowrap}
+.opciones-molienda{flex-direction:row;gap:.5rem;margin:.5rem 0 1.25rem}
+.opciones-molienda .opcion{flex:1;justify-content:center;padding-inline:.6rem}
+.opcion-unica{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:.7rem .95rem;border:1px solid var(--paramo);
+  background:rgba(79,107,87,.09);margin-bottom:.5rem;
+}
+
+.boton{
+  display:block;width:100%;padding:.95rem 1.2rem;
+  font-family:var(--sans);font-size:.95rem;font-weight:500;
+  color:var(--papel);background:var(--tinta);border:1px solid var(--tinta);
+  text-align:center;text-decoration:none;cursor:pointer;
+  transition:background-color .25s ease,border-color .25s ease;
+}
+.boton:hover{background:var(--paramo);border-color:var(--paramo)}
+.boton:focus-visible{outline:2px solid var(--paramo);outline-offset:3px}
+
+/* ---------- pasos ---------- */
+.pasos{
+  list-style:none;margin:2.5rem 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(1.75rem,4vw,3.5rem);counter-reset:paso;
+}
+.pasos li{counter-increment:paso;max-width:34ch}
+.pasos li::before{
+  content:counter(paso);display:block;
+  font-family:var(--mono);font-size:.78rem;color:var(--paramo);
+  padding-bottom:.7rem;margin-bottom:.9rem;
+  border-bottom:1px solid rgba(79,107,87,.35);
+}
+.pasos p{margin:0;color:var(--tinta-suave);font-size:.97rem}
+
+/* ---------- cierre ---------- */
+.cierre{background:var(--tinta);color:var(--papel);padding-block:var(--aire)}
+.cierre-rejilla{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);
+  gap:clamp(2.5rem,6vw,5rem);align-items:center;
+}
+.cierre .titulo{color:var(--papel);max-width:16ch}
+.cierre p{max-width:42ch;color:rgba(233,231,223,.78);margin:0 0 2rem}
+.cierre-foto{aspect-ratio:3/4;overflow:hidden;background:#0f1713}
+.cierre-foto img{width:100%;height:100%;object-fit:cover}
+.cierre-boton{
+  display:inline-block;padding:1rem 2.1rem;
+  background:var(--papel);color:var(--tinta);border:1px solid var(--papel);
+  font-size:.95rem;font-weight:500;text-decoration:none;
+  transition:background-color .25s ease,color .25s ease;
+}
+.cierre-boton:hover{background:transparent;color:var(--papel)}
+.cierre-boton:focus-visible{outline:2px solid var(--plata);outline-offset:3px}
+
+/* ---------- pie ---------- */
+.pie{
+  background:var(--tinta);color:var(--plata);
+  padding:2.25rem var(--margen) 2.75rem;
+  border-top:1px solid rgba(169,172,156,.2);font-size:.85rem;
+}
+.pie-fila{
+  max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;
+  gap:.65rem 2.5rem;justify-content:space-between;
+}
+.pie p{margin:0}
+.pie a{color:var(--papel);text-decoration:none;border-bottom:1px solid rgba(169,172,156,.4)}
+.pie a:hover{border-bottom-color:var(--papel)}
+
+/* ---------- movimiento ---------- */
+.entra{opacity:0;transform:translateY(14px)}
+.visible{opacity:1;transform:none;transition:opacity .7s ease,transform .7s cubic-bezier(.22,.61,.36,1)}
+.hero h1,.hero-bajada,.hero-altura{animation:subir .95s cubic-bezier(.22,.61,.36,1) both}
+.hero-altura{animation-delay:.15s}
+.hero h1{animation-delay:.28s}
+.hero-bajada{animation-delay:.46s}
+@keyframes subir{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .entra{opacity:1;transform:none}
+  .hero h1,.hero-bajada,.hero-altura{animation:none}
+  *{transition-duration:.01ms!important}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .rasgos{grid-template-columns:1fr;gap:1.75rem}
+  .fila{grid-template-columns:110px minmax(0,1fr);row-gap:1.5rem}
+  .fila-compra{grid-column:1/-1}
+  .pasos{grid-template-columns:1fr;gap:1.75rem}
+  .cierre-rejilla{grid-template-columns:1fr}
+  .cierre-foto{aspect-ratio:16/10;order:-1}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .fila{grid-template-columns:1fr}
+  .fila-foto{aspect-ratio:4/3}
+}
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <a class="marca" href="#">Montaña Serena</a>
+  <a class="barra-enlace" href="#cosecha">Ver la cosecha</a>
+</header>
+
+<section class="hero">
+  <picture>
+    <source media="(max-width:768px)" type="image/webp" srcset="img/hero-finca/movil/foto1-movil.webp">
+    <source media="(max-width:768px)" srcset="img/hero-finca/movil/foto1-movil.jpg">
+    <source type="image/webp" srcset="img/hero-finca/escritorio/foto1-cinematografica.webp">
+    <img src="img/hero-finca/escritorio/foto1-cinematografica.jpg"
+         alt="Cafetal en ladera bajo un cielo con nubes, Cauca, Colombia"
+         width="2000" height="1064" fetchpriority="high" decoding="async">
+  </picture>
+  <div class="hero-texto envoltura">
+    <p class="hero-altura">1.750 a 1.800 m s. n. m. en el Cauca</p>
+    <h1>Aquí el grano madura despacio</h1>
+    <p class="hero-bajada">Café de origen de la cordillera caucana, tostado por pedido en Popayán.</p>
+  </div>
+</section>
+
+<section class="seccion">
+  <div class="envoltura relato entra">
+    <h2 class="titulo">No venimos de una sola finca</h2>
+    <p>Montaña Serena no es una hacienda con nombre propio. Es la cordillera entera: cada cosecha la armamos con caficultores de veredas distintas del Cauca, entre los 1.750 y los 1.800 metros.</p>
+    <p>Son familias que llevan generaciones leyendo la neblina para decidir cuándo recoger y cuándo esperar un día más. Ese cálculo, que no está escrito en ninguna parte, es lo que termina en la taza.</p>
+    <p>Compramos poco y lo compramos bien. Por eso los lotes cambian con el año y por eso cada referencia lleva nombre propio.</p>
+  </div>
+</section>
+
+<div class="franja">
+  <picture>
+    <source type="image/webp" srcset="img/secciones/seccion-cafetal-franja.webp">
+    <img src="img/secciones/seccion-cafetal-franja.jpg" alt="Hilera de cafetos en la montaña"
+         width="2000" height="833" loading="lazy" decoding="async">
+  </picture>
+</div>
+
+<section class="seccion">
+  <div class="envoltura">
+    <h2 class="titulo entra">Lo que la montaña le hace al grano</h2>
+    <div class="rasgos">
+      <div class="rasgo entra">
+        <h3>Madura sin afán</h3>
+        <p>A esta altura la temperatura media baja y el cafeto pierde la prisa. La cereza puede tardar semanas más en madurar que en tierra caliente, y ese tiempo lo gasta acumulando azúcares.</p>
+      </div>
+      <div class="rasgo entra">
+        <h3>El grano queda denso</h3>
+        <p>Esa maduración larga produce un grano compacto y pesado, que resiste tuestes más precisos. En taza aparece como dulzor sostenido, acidez definida y un final que no se corta.</p>
+      </div>
+      <div class="rasgo entra">
+        <h3>Se recoge grano a grano</h3>
+        <p>En estas pendientes no entra máquina. La recolección es selectiva: varios pases sobre el mismo árbol, bajando solo la cereza que ya está. Es lento y por eso funciona.</p>
+      </div>
+    </div>
+    <p class="remate entra">La altura pone el piso: por debajo de cierto punto sencillamente no hay de dónde sacar esta taza. Lo que separa una referencia de otra ya no es el metro sobre el mar, sino el proceso y qué tan corto sea el lote.</p>
+  </div>
+</section>
+
+<section class="seccion seccion-hondo" id="cosecha">
+  <div class="envoltura">
+    <div class="catalogo-cabeza">
+      <h2 class="titulo">Cosecha actual</h2>
+      <p class="catalogo-nota">Se tuesta por pedido</p>
+    </div>
+    <ul class="lista" id="lista"></ul>
+  </div>
+</section>
+
+<div class="franja">
+  <picture>
+    <source type="image/webp" srcset="img/secciones/seccion-espresso-franja.webp">
+    <img src="img/secciones/seccion-espresso-franja.jpg" alt="Doble extracción de espresso cayendo en dos vasos"
+         width="2000" height="833" loading="lazy" decoding="async">
+  </picture>
+</div>
+
+<section class="seccion">
+  <div class="envoltura">
+    <h2 class="titulo entra">Cómo funciona el pre-pedido</h2>
+    <ol class="pasos">
+      <li class="entra"><p>Eliges la referencia, el tamaño y si lo quieres en grano o molido.</p></li>
+      <li class="entra"><p>El botón abre WhatsApp con el pedido ya escrito. Solo lo envías.</p></li>
+      <li class="entra"><p>Confirmamos disponibilidad, fecha de tueste y entrega en Popayán o envío nacional.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="cierre">
+  <div class="envoltura cierre-rejilla">
+    <div>
+      <h2 class="titulo">Escríbenos y armamos tu pedido</h2>
+      <p>Tostamos por encargo, así que el café sale de la tostadora pocos días antes de llegarte.</p>
+      <a class="cierre-boton" id="cierre-wa" href="#" target="_blank" rel="noopener">Abrir WhatsApp</a>
+    </div>
+    <div class="cierre-foto entra">
+      <picture>
+        <source type="image/webp" srcset="img/lifestyle/lifestyle-reserva-ancestral-mesa.webp">
+        <img src="img/lifestyle/lifestyle-reserva-ancestral-mesa.jpg"
+             alt="Bolsa de café Montaña Serena sobre una mesa de madera"
+             width="1200" height="1600" loading="lazy" decoding="async">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<footer class="pie">
+  <div class="pie-fila">
+    <p>Montaña Serena, Popayán, Cauca, Colombia</p>
+    <p><a id="pie-wa" href="#" target="_blank" rel="noopener">WhatsApp 304 481 5539</a></p>
+    <p><a href="https://instagram.com/ms_coffee98" target="_blank" rel="noopener">Instagram ms_coffee98</a></p>
+    <p>Sitio por Northy Labs</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIGURACIÓN — es lo único que hay que editar
+   ============================================================ */
+
+const WHATSAPP = "573044815539";
+
+const CATALOGO = [
+  {
+    id: "montana-real",
+    nombre: "Montaña Real",
+    foto: "img/producto/producto-montana-real-500g",
+    alt: "Bolsa dorada de café Montaña Real, 500 g",
+    altitud: "1.775 m",
+    proceso: "Lavado",
+    notas: "Panela y mandarina, con chocolate asomando según el lote. Es el de todos los días: parejo, dulce y sin aristas.",
+    presentaciones: [
+      { nombre: "500 g", precio: 28000 },
+      { nombre: "125 g", precio: 8000 }
+    ]
+  },
+  {
+    id: "cordillera-roast",
+    nombre: "Cordillera Roast",
+    estado: "Preventa",
+    foto: "img/producto/producto-cordillera-roast-500g",
+    alt: "Bolsa negra de café Cordillera Roast, 500 g",
+    altitud: "1.750 m",
+    proceso: "Lavado, tueste alto",
+    notas: "Tueste más alto y molienda más fina. Cuerpo grande, cacao oscuro y caramelo quemado. Aguanta la leche sin perderse.",
+    presentaciones: [
+      { nombre: "500 g", precio: 28000 },
+      { nombre: "250 g", precio: 15000 }
+    ]
+  },
+  {
+    id: "pink-bourbon-reserva",
+    nombre: "Pink Bourbon Reserva",
+    foto: "img/producto/producto-bourbon-rosado",
+    alt: "Bolsa vino tinto de café Pink Bourbon Reserva",
+    altitud: "1.800 m",
+    proceso: "Lavado y honey",
+    notas: "Variedad pink bourbon, el bourbon rosado. El más expresivo de la casa: acidez viva, casi vinosa, sostenida por un dulzor que no la deja caer. No se parece a lo que la gente espera de un café colombiano.",
+    presentaciones: [
+      { nombre: "500 g", precio: 35000 }
+    ]
+  },
+  {
+    id: "reserva-ancestral",
+    nombre: "Reserva Ancestral",
+    foto: "img/producto/producto-reserva-ancestral",
+    alt: "Bolsa roja de café Reserva Ancestral",
+    altitud: "1.757 m",
+    proceso: "Natural",
+    notas: "Microlote de fermentación natural. Fruta madura, notas de vino y una dulzura que se queda largo rato. Sale en cantidades muy cortas y se agota.",
+    presentaciones: [
+      { nombre: "250 g", precio: 25000 }
+    ]
+  }
+];
+
+/* ============================================================
+   De aquí para abajo no hace falta tocar nada
+   ============================================================ */
+
+const pesos = new Intl.NumberFormat("es-CO", {
+  style: "currency", currency: "COP", maximumFractionDigits: 0
+});
+
+function enlaceWhatsApp(texto){
+  return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto);
+}
+
+function pintarCatalogo(){
+  const lista = document.getElementById("lista");
+
+  CATALOGO.forEach(cafe => {
+    const fila = document.createElement("li");
+    fila.className = "fila entra";
+
+    const foto = document.createElement("div");
+    foto.className = "fila-foto";
+    foto.innerHTML =
+      "<picture>" +
+        '<source type="image/webp" srcset="' + cafe.foto + '.webp">' +
+        '<img src="' + cafe.foto + '.jpg" alt="' + cafe.alt + '" ' +
+             'width="900" height="1200" loading="lazy" decoding="async">' +
+      "</picture>";
+
+    const info = document.createElement("div");
+    info.innerHTML =
+      '<h3 class="fila-nombre">' + cafe.nombre +
+        (cafe.estado ? '<span class="etiqueta-estado">' + cafe.estado + '</span>' : '') +
+      '</h3>' +
+      '<p class="fila-notas">' + cafe.notas + '</p>' +
+      '<p class="fila-datos"><span>' + cafe.altitud + '</span><span>' + cafe.proceso + '</span></p>';
+
+    const compra = document.createElement("div");
+    compra.className = "fila-compra";
+
+    let leerSeleccion;
+
+    if (cafe.presentaciones.length > 1) {
+      const grupo = document.createElement("fieldset");
+      grupo.className = "opciones";
+      grupo.innerHTML = "<legend>Tamaño de " + cafe.nombre + "</legend>";
+      cafe.presentaciones.forEach((p, i) => {
+        const etiqueta = document.createElement("label");
+        etiqueta.className = "opcion";
+        etiqueta.innerHTML =
+          '<input type="radio" name="p-' + cafe.id + '" value="' + i + '"' + (i === 0 ? " checked" : "") + '>' +
+          '<span class="opcion-nombre">' + p.nombre + '</span>' +
+          '<span class="opcion-precio">' + pesos.format(p.precio) + '</span>';
+        grupo.appendChild(etiqueta);
+      });
+      compra.appendChild(grupo);
+      leerSeleccion = () => cafe.presentaciones[Number(grupo.querySelector("input:checked").value)];
+    } else {
+      const unica = cafe.presentaciones[0];
+      const caja = document.createElement("div");
+      caja.className = "opcion-unica";
+      caja.innerHTML =
+        '<span class="opcion-nombre">' + unica.nombre + '</span>' +
+        '<span class="opcion-precio">' + pesos.format(unica.precio) + '</span>';
+      compra.appendChild(caja);
+      leerSeleccion = () => unica;
+    }
+
+    const molienda = document.createElement("fieldset");
+    molienda.className = "opciones opciones-molienda";
+    molienda.innerHTML = "<legend>Presentación del grano de " + cafe.nombre + "</legend>";
+    ["Grano entero", "Molido"].forEach((m, i) => {
+      const etiqueta = document.createElement("label");
+      etiqueta.className = "opcion";
+      etiqueta.innerHTML =
+        '<input type="radio" name="m-' + cafe.id + '" value="' + m + '"' + (i === 0 ? " checked" : "") + '>' +
+        '<span class="opcion-nombre">' + m + '</span>';
+      molienda.appendChild(etiqueta);
+    });
+    compra.appendChild(molienda);
+    const leerMolienda = () => molienda.querySelector("input:checked").value;
+
+    const boton = document.createElement("a");
+    boton.className = "boton";
+    boton.target = "_blank";
+    boton.rel = "noopener";
+    boton.textContent = "Pre-pedir por WhatsApp";
+
+    const actualizar = () => {
+      const p = leerSeleccion();
+      boton.href = enlaceWhatsApp(
+        "Hola, Montaña Serena. Quiero hacer un pre-pedido:\n\n" +
+        cafe.nombre + "\n" +
+        p.nombre + " — " + pesos.format(p.precio) + "\n" +
+        leerMolienda() +
+        "\n\n¿Cómo continúo?"
+      );
+    };
+
+    compra.addEventListener("change", actualizar);
+    actualizar();
+    compra.appendChild(boton);
+
+    fila.append(foto, info, compra);
+    lista.appendChild(fila);
+  });
+}
+
+function enlacesGenerales(){
+  const texto = "Hola, Montaña Serena. Quiero información sobre los cafés de la cosecha actual.";
+  document.getElementById("cierre-wa").href = enlaceWhatsApp(texto);
+  document.getElementById("pie-wa").href = enlaceWhatsApp(texto);
+}
+
+function revelar(){
+  const objetivos = document.querySelectorAll(".entra");
+  if (!("IntersectionObserver" in window) ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    objetivos.forEach(el => el.classList.add("visible"));
+    return;
+  }
+  const vigia = new IntersectionObserver((entradas) => {
+    entradas.forEach((entrada, i) => {
+      if (!entrada.isIntersecting) return;
+      const el = entrada.target;
+      setTimeout(() => el.classList.add("visible"), i * 90);
+      vigia.unobserve(el);
+    });
+  }, { threshold: .12, rootMargin: "0px 0px -8% 0px" });
+  objetivos.forEach(el => vigia.observe(el));
+}
+
+pintarCatalogo();
+enlacesGenerales();
+revelar();
+</script>
+</body>
+</html>
