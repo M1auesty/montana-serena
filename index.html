@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Montaña Serena — Café de origen del Cauca</title>
-<meta name="description" content="Café especial de las montañas del Cauca. Cuatro referencias tostadas por pedido en Popayán. Pre-pedido por WhatsApp.">
+<title>Montaña Serena — Café de montaña, tostado fresco</title>
+<meta name="description" content="Café de montaña del Cauca, comprado en lotes cortos y tostado seguido para que llegue reciente. Cuatro referencias. Pedidos por WhatsApp en Popayán y envíos a todo el país.">
 
 <!--
   ============================================================
@@ -87,8 +87,9 @@ a{color:inherit}
   padding:1.75rem var(--margen);color:var(--papel);
 }
 .marca{
-  font-family:var(--serif);font-optical-sizing:auto;font-weight:400;
-  font-size:1.25rem;letter-spacing:.01em;text-decoration:none;
+  font-family:var(--serif);font-optical-sizing:none;
+  font-variation-settings:"opsz" 16,"wght" 500;font-weight:500;
+  font-size:1.25rem;letter-spacing:.02em;text-decoration:none;
 }
 .barra-enlace{
   font-size:.9rem;text-decoration:none;padding-bottom:2px;
@@ -104,17 +105,26 @@ a{color:inherit}
   background:#16201a;overflow:hidden;
 }
 .hero picture,.hero img{position:absolute;inset:0;width:100%;height:100%}
-.hero img{object-fit:cover;object-position:center 58%}
+.hero img{
+  object-fit:cover;object-position:center 40%;
+  filter:saturate(.86) contrast(1.03);
+}
 .hero::after{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(to top,rgba(12,19,15,.9) 6%,rgba(12,19,15,.28) 52%,rgba(12,19,15,.5) 100%);
+  background:linear-gradient(to top,
+    rgba(12,19,15,.94) 0%,
+    rgba(12,19,15,.86) 24%,
+    rgba(12,19,15,.58) 48%,
+    rgba(12,19,15,.30) 72%,
+    rgba(12,19,15,.52) 100%);
 }
 .hero-texto{
   position:relative;z-index:1;width:100%;
   padding-bottom:clamp(3.5rem,8vw,6rem);color:var(--papel);
 }
 .hero h1{
-  font-family:var(--serif);font-optical-sizing:auto;font-weight:300;
+  font-family:var(--serif);font-optical-sizing:none;
+  font-variation-settings:"opsz" 46,"wght" 450;font-weight:450;
   font-size:clamp(2.6rem,7.2vw,5.4rem);line-height:1.02;
   letter-spacing:-.018em;margin:0 0 1.5rem;max-width:15ch;
 }
@@ -302,6 +312,15 @@ a{color:inherit}
   body{font-size:16px}
   .fila{grid-template-columns:1fr}
   .fila-foto{aspect-ratio:4/3}
+  .hero h1{font-variation-settings:"opsz" 30,"wght" 500;font-weight:500}
+  .hero::after{
+    background:linear-gradient(to top,
+      rgba(12,19,15,.95) 0%,
+      rgba(12,19,15,.90) 38%,
+      rgba(12,19,15,.62) 62%,
+      rgba(12,19,15,.38) 80%,
+      rgba(12,19,15,.55) 100%);
+  }
 }
 </style>
 </head>
@@ -322,18 +341,18 @@ a{color:inherit}
          width="2000" height="1064" fetchpriority="high" decoding="async">
   </picture>
   <div class="hero-texto envoltura">
-    <p class="hero-altura">1.750 a 1.800 m s. n. m. en el Cauca</p>
+    <p class="hero-altura">Cosecha actual: Cauca, 1.654 a 1.863 m s. n. m.</p>
     <h1>Aquí el grano madura despacio</h1>
-    <p class="hero-bajada">Café de origen de la cordillera caucana, tostado por pedido en Popayán.</p>
+    <p class="hero-bajada">Café de la cordillera caucana, tostado en lotes pequeños para que llegue reciente.</p>
   </div>
 </section>
 
 <section class="seccion">
   <div class="envoltura relato entra">
     <h2 class="titulo">No venimos de una sola finca</h2>
-    <p>Montaña Serena no es una hacienda con nombre propio. Es la cordillera entera: cada cosecha la armamos con caficultores de veredas distintas del Cauca, entre los 1.750 y los 1.800 metros.</p>
-    <p>Son familias que llevan generaciones leyendo la neblina para decidir cuándo recoger y cuándo esperar un día más. Ese cálculo, que no está escrito en ninguna parte, es lo que termina en la taza.</p>
-    <p>Compramos poco y lo compramos bien. Por eso los lotes cambian con el año y por eso cada referencia lleva nombre propio.</p>
+    <p>Montaña Serena no es una hacienda con nombre propio. El café lo cultivan familias de veredas del Cauca, la nuestra entre ellas, en lotes que van de los 1.654 a los 1.863 metros.</p>
+    <p>Compramos poco y compramos con criterio: altura, recolección selectiva y grano parejo. Eso tiene una consecuencia directa: los lotes cambian durante el año, y con ellos cambia la taza. No todo el café sabe igual, ni debería.</p>
+    <p>Por eso cada referencia lleva nombre propio. No es un adorno: cada una tiene un proceso distinto detrás, y eso es lo que las separa.</p>
   </div>
 </section>
 
@@ -362,7 +381,7 @@ a{color:inherit}
         <p>En estas pendientes no entra máquina. La recolección es selectiva: varios pases sobre el mismo árbol, bajando solo la cereza que ya está. Es lento y por eso funciona.</p>
       </div>
     </div>
-    <p class="remate entra">La altura pone el piso: por debajo de cierto punto sencillamente no hay de dónde sacar esta taza. Lo que separa una referencia de otra ya no es el metro sobre el mar, sino el proceso y qué tan corto sea el lote.</p>
+    <p class="remate entra">La altura ayuda, pero sola no basta. Lo que termina definiendo la taza es la suma: la maduración lenta, la recolección a mano una cereza a la vez, y el proceso que se le dé después a cada lote.</p>
   </div>
 </section>
 
@@ -370,7 +389,7 @@ a{color:inherit}
   <div class="envoltura">
     <div class="catalogo-cabeza">
       <h2 class="titulo">Cosecha actual</h2>
-      <p class="catalogo-nota">Se tuesta por pedido</p>
+      <p class="catalogo-nota">Se tuesta en lotes pequeños</p>
     </div>
     <ul class="lista" id="lista"></ul>
   </div>
@@ -399,7 +418,7 @@ a{color:inherit}
   <div class="envoltura cierre-rejilla">
     <div>
       <h2 class="titulo">Escríbenos y armamos tu pedido</h2>
-      <p>Tostamos por encargo, así que el café sale de la tostadora pocos días antes de llegarte.</p>
+      <p>No tostamos de a mucho. Vamos tostando a medida que se va acabando, así que el café que te llega salió de la tostadora hace poco, no hace meses.</p>
       <a class="cierre-boton" id="cierre-wa" href="#" target="_blank" rel="noopener">Abrir WhatsApp</a>
     </div>
     <div class="cierre-foto entra">
@@ -418,7 +437,7 @@ a{color:inherit}
     <p>Montaña Serena, Popayán, Cauca, Colombia</p>
     <p><a id="pie-wa" href="#" target="_blank" rel="noopener">WhatsApp 304 481 5539</a></p>
     <p><a href="https://instagram.com/ms_coffee98" target="_blank" rel="noopener">Instagram ms_coffee98</a></p>
-    <p>Sitio por Northy Labs</p>
+    <p>Sitio por <a href="https://northylabs.dev" target="_blank" rel="noopener">Northy Labs</a></p>
   </div>
 </footer>
 
@@ -429,6 +448,9 @@ a{color:inherit}
 
 const WHATSAPP = "573044815539";
 
+/* Los campos "variedad" y "metodo" son opcionales: si los dejas
+   vacíos o los borras, la fila simplemente no los muestra.
+   Llénalos con lo que ya dice la etiqueta física. */
 const CATALOGO = [
   {
     id: "montana-real",
@@ -437,7 +459,9 @@ const CATALOGO = [
     alt: "Bolsa dorada de café Montaña Real, 500 g",
     altitud: "1.775 m",
     proceso: "Lavado",
-    notas: "Panela y mandarina, con chocolate asomando según el lote. Es el de todos los días: parejo, dulce y sin aristas.",
+    variedad: "",
+    metodo: "Greca y goteo",
+    notas: "El de todos los días. Lavado y de tueste medio: parejo, fácil de preparar y sin sorpresas. Es el que se queda en la cocina de la casa.",
     presentaciones: [
       { nombre: "500 g", precio: 28000 },
       { nombre: "125 g", precio: 8000 }
@@ -450,8 +474,10 @@ const CATALOGO = [
     foto: "img/producto/producto-cordillera-roast-500g",
     alt: "Bolsa negra de café Cordillera Roast, 500 g",
     altitud: "1.750 m",
-    proceso: "Lavado, tueste alto",
-    notas: "Tueste más alto y molienda más fina. Cuerpo grande, cacao oscuro y caramelo quemado. Aguanta la leche sin perderse.",
+    proceso: "Lavado, tueste a leña",
+    variedad: "",
+    metodo: "Greca y espresso",
+    notas: "Tueste tradicional a leña, oscuro y de molienda fina. Da una taza fuerte, de mucho cuerpo, que no se pierde con leche. No es un café sutil y no pretende serlo.",
     presentaciones: [
       { nombre: "500 g", precio: 28000 },
       { nombre: "250 g", precio: 15000 }
@@ -464,7 +490,9 @@ const CATALOGO = [
     alt: "Bolsa vino tinto de café Pink Bourbon Reserva",
     altitud: "1.800 m",
     proceso: "Lavado y honey",
-    notas: "Variedad pink bourbon, el bourbon rosado. El más expresivo de la casa: acidez viva, casi vinosa, sostenida por un dulzor que no la deja caer. No se parece a lo que la gente espera de un café colombiano.",
+    variedad: "Pink bourbon",
+    metodo: "Filtro",
+    notas: "Variedad pink bourbon, el bourbon rosado. Es la referencia más expresiva de la casa: más aromática y más ácida que un café tradicional. No se parece a lo que la gente espera de un café colombiano.",
     presentaciones: [
       { nombre: "500 g", precio: 35000 }
     ]
@@ -476,7 +504,9 @@ const CATALOGO = [
     alt: "Bolsa roja de café Reserva Ancestral",
     altitud: "1.757 m",
     proceso: "Natural",
-    notas: "Microlote de fermentación natural. Fruta madura, notas de vino y una dulzura que se queda largo rato. Sale en cantidades muy cortas y se agota.",
+    variedad: "",
+    metodo: "Filtro",
+    notas: "Microlote de proceso natural: la cereza se seca entera, sin despulpar. Eso da una taza más frutal y más dulce que un lavado. Sale en cantidades cortas y se agota.",
     presentaciones: [
       { nombre: "250 g", precio: 25000 }
     ]
@@ -517,7 +547,12 @@ function pintarCatalogo(){
         (cafe.estado ? '<span class="etiqueta-estado">' + cafe.estado + '</span>' : '') +
       '</h3>' +
       '<p class="fila-notas">' + cafe.notas + '</p>' +
-      '<p class="fila-datos"><span>' + cafe.altitud + '</span><span>' + cafe.proceso + '</span></p>';
+      '<p class="fila-datos">' +
+        '<span>' + cafe.altitud + '</span>' +
+        '<span>' + cafe.proceso + '</span>' +
+        (cafe.variedad ? '<span>' + cafe.variedad + '</span>' : '') +
+        (cafe.metodo ? '<span>' + cafe.metodo + '</span>' : '') +
+      '</p>';
 
     const compra = document.createElement("div");
     compra.className = "fila-compra";
